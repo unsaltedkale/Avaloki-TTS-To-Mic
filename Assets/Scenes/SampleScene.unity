@@ -966,7 +966,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   voice: Samantha
-  outputChannel: 43
+  outputChannel: 61
   onStartedSpeaking:
     m_PersistentCalls:
       m_Calls: []
