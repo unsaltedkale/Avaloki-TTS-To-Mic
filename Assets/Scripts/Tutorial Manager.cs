@@ -6,16 +6,26 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
+    [System.Serializable]
     public struct Event
     {
-        public string text;
-        public bool videoBool;
-        public string videoPath;
-        public bool buttonChoicesBool;
-        public string buttonLabel1;
-        public string buttonLabel2;
-        public string buttonLabel3;
-        public string buttonLabel4;
+        string text;
+        bool videoBool;
+        string videoPath;
+        bool buttonChoicesBool;
+        string buttonLabel1;
+        string buttonLabel2;
+        string buttonLabel3;
+        string buttonLabel4;
+
+        public string Text { get => text; set => text = value; }
+        public bool VideoBool { get => videoBool; set => videoBool = value; }
+        public string VideoPath { get => videoPath; set => videoPath = value; }
+        public bool ButtonChoicesBool { get => buttonChoicesBool; set => buttonChoicesBool = value; }
+        public string ButtonLabel1 { get => buttonLabel1; set => buttonLabel1 = value; }
+        public string ButtonLabel2 { get => buttonLabel2; set => buttonLabel2 = value; }
+        public string ButtonLabel3 { get => buttonLabel3; set => buttonLabel3 = value; }
+        public string ButtonLabel4 { get => buttonLabel4; set => buttonLabel4 = value; }
 
         public Event(string Text, bool VideoBool, string VideoPath, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
         {
@@ -76,7 +86,26 @@ public class TutorialManager : MonoBehaviour
 
     void Render()
     {
-        TextBox.text = currentEvent.text;
+        TextBox.text = currentEvent.Text;
+
+        if (currentEvent.VideoBool)
+        {
+            //set video
+        }
+        else
+        {
+            //disable
+        }
+
+        if (currentEvent.ButtonChoicesBool)
+        {
+            //do text
+        }
+        else
+        {
+            //disable
+        }
+        
 
     }
 
