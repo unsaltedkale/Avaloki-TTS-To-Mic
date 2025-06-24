@@ -8,18 +8,20 @@ public class AppManager : MonoBehaviour
     public TMP_InputField inputField;
     public int builtInOutputChannel;
     public int avalokiMicrophoneOutputChannel;
+    public int currentOutputChannel;
     public bool speechSynthBusy;
     public bool sendButtonPressedBool;
     public int speakingWPM;
     public TMP_Dropdown speedSelectorMenu;
     public TMP_Dropdown voiceSelectorMenu;
+    public TMP_Dropdown audioOutputSelectorMenu;
     public string lastSpokenMessage;
     public string voice;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        currentOutputChannel = avalokiMicrophoneOutputChannel;
     }
 
     // Update is called once per frame
@@ -43,7 +45,7 @@ public class AppManager : MonoBehaviour
     {
         if (!appleSpeechSynth.wasSpeaking)
         {
-            appleSpeechSynth.Speak(lastSpokenMessage, avalokiMicrophoneOutputChannel, speakingWPM, voice);
+            appleSpeechSynth.Speak(lastSpokenMessage, currentOutputChannel, speakingWPM, voice);
         }
     }
 
@@ -95,6 +97,18 @@ public class AppManager : MonoBehaviour
         }
     }
 
+    public void audioOutputSelectorChanged()
+    {
+        if (audioOutputSelectorMenu.value == 0)
+        {
+            currentOutputChannel = avalokiMicrophoneOutputChannel;
+        }
+
+        else if (audioOutputSelectorMenu.value == 1)
+        {
+            currentOutputChannel = builtInOutputChannel;
+        }
+    }
     public void KeepActive()
     {
         inputField.ActivateInputField();
@@ -105,7 +119,7 @@ public class AppManager : MonoBehaviour
         if (!appleSpeechSynth.wasSpeaking)
         {
             print("Handed Off " + inputField.text);
-            appleSpeechSynth.Speak(inputField.text, avalokiMicrophoneOutputChannel, speakingWPM, voice);
+            appleSpeechSynth.Speak(inputField.text, currentOutputChannel, speakingWPM, voice);
             inputField.text = "";
         }
         KeepActive();
