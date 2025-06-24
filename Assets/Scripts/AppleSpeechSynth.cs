@@ -7,15 +7,11 @@ using UnityEngine.Events;
 
 public class AppleSpeechSynth : MonoBehaviour
 {
-
-    public string voice = "Samantha";
-    public int outputChannel = 51;
-
     public UnityEvent onStartedSpeaking;
     public UnityEvent onStoppedSpeaking;
 
     System.Diagnostics.Process speechProcess;
-    bool wasSpeaking;
+    public bool wasSpeaking;
 
     void Update()
     {
@@ -28,11 +24,19 @@ public class AppleSpeechSynth : MonoBehaviour
         }
     }
 
-    public void Speak(string text)
+    public void Speak(string text, int sentOutputChannel, int speakingWPM, string voice)
     {
         print("Speaking now.");
-        string cmdArgs = string.Format("-a {2} -v {0} \"{1}\"", voice, text.Replace("\"", ","), outputChannel);
+        string cmdArgs = string.Format("-a {2} -v {0} -r {3} \"{1}\"", voice, text.Replace("\"", ","), sentOutputChannel, speakingWPM);
         speechProcess = System.Diagnostics.Process.Start("/usr/bin/say", cmdArgs);
+    }
+
+    public void EmergencyStop()
+    {
+        if (speechProcess != null && !speechProcess.HasExited)
+        {
+        speechProcess.Kill();
+        }
     }
 
 }
