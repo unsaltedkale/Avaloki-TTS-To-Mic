@@ -48,6 +48,11 @@ public class TutorialManager : MonoBehaviour
     public bool nextButtonPressedBool;
     public TextMeshProUGUI TextBox;
     public Button nextButton;
+    public GameObject buttonSelectionGroup;
+    public Button buttonSelect1;
+    public Button buttonSelect2;
+    public Button buttonSelect3;
+    public Button buttonSelect4;
 
     public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", false, "", false, "", "", "", "");
     public Event welcome2 = new Event("Before you can use this program, we have to set it up!", false, "", false, "", "", "", "");
@@ -155,6 +160,8 @@ public class TutorialManager : MonoBehaviour
         ListEvents.Add(integration5);
         ListEvents.Add(integration6);
 
+        ListEvents.Add(selectapp1);
+
         ListEvents.Add(discord1);
         ListEvents.Add(discord2);
         ListEvents.Add(discord3);
@@ -192,6 +199,7 @@ public class TutorialManager : MonoBehaviour
         Render();
         yield return new WaitUntil(() => nextButtonPressedBool == true);
         nextButtonPressedBool = false;
+
         if (currentEvent.Text != end1.Text)
         {
             var oldcurrentEvent = currentEvent;
@@ -207,8 +215,9 @@ public class TutorialManager : MonoBehaviour
         {
             print("THIS IS WHERE WE WOULD RELOAD THE SCENE!!!!");
             //SceneManager.LoadScene("App_Scene");
-            yield break;
         }
+
+        yield break;
     }
 
     public IEnumerator CatchCase()
@@ -238,6 +247,16 @@ public class TutorialManager : MonoBehaviour
             currentEvent = end1;
         }
 
+        for(int i = 0; i < ListEvents.Count; i++)
+        {
+            Event e = ListEvents[i];
+            if (e.Text == currentEvent.Text)
+            {
+                currentEventIndex = i;
+                break;
+            }
+        }
+
         yield break;
     }
 
@@ -256,11 +275,56 @@ public class TutorialManager : MonoBehaviour
 
         if (currentEvent.ButtonChoicesBool)
         {
-            //do text
+            buttonSelectionGroup.SetActive(true);
+
+            if (currentEvent.ButtonLabel1 != "")
+            {
+                buttonSelect1.gameObject.SetActive(true);
+                buttonSelect1.GetComponentInChildren<TextMeshProUGUI>().text = currentEvent.ButtonLabel1;
+            }
+
+            else
+            {
+                buttonSelect1.gameObject.SetActive(false);
+            }
+
+            if (currentEvent.ButtonLabel2 != "")
+            {
+                buttonSelect2.gameObject.SetActive(true);
+                buttonSelect2.GetComponentInChildren<TextMeshProUGUI>().text = currentEvent.ButtonLabel2;
+            }
+
+            else
+            {
+                buttonSelect2.gameObject.SetActive(false);
+            }
+
+            if (currentEvent.ButtonLabel3 != "")
+            {
+                buttonSelect3.gameObject.SetActive(true);
+                buttonSelect3.GetComponentInChildren<TextMeshProUGUI>().text = currentEvent.ButtonLabel3;
+            }
+
+            else
+            {
+                buttonSelect3.gameObject.SetActive(false);
+            }
+
+            if (currentEvent.ButtonLabel4 != "")
+            {
+                buttonSelect4.GetComponentInChildren<TextMeshProUGUI>().text = currentEvent.ButtonLabel4;
+            }
+
+            else
+            {
+                buttonSelect4.gameObject.SetActive(false);
+            }
+
         }
+
         else
         {
-            //disable
+            buttonSelectionGroup.SetActive(false);
         }
         
 
