@@ -9,14 +9,13 @@ using UnityEngine.EventSystems;
 public class TutorialManager : MonoBehaviour
 {
 
-    public Image blank;
+    /*public Image blank;
 
     [System.Serializable]
     public struct Event
     {
         string text;
         bool imageBool;
-        Image imagePath;
         bool buttonChoicesBool;
         string buttonLabel1;
         string buttonLabel2;
@@ -25,12 +24,27 @@ public class TutorialManager : MonoBehaviour
 
         public string Text { get => text; set => text = value; }
         public bool ImageBool { get => imageBool; set => imageBool = value; }
-        public Image ImagePath { get => imagePath; set => imagePath = value; }
         public bool ButtonChoicesBool { get => buttonChoicesBool; set => buttonChoicesBool = value; }
         public string ButtonLabel1 { get => buttonLabel1; set => buttonLabel1 = value; }
         public string ButtonLabel2 { get => buttonLabel2; set => buttonLabel2 = value; }
         public string ButtonLabel3 { get => buttonLabel3; set => buttonLabel3 = value; }
         public string ButtonLabel4 { get => buttonLabel4; set => buttonLabel4 = value; }
+
+        public Event(string Text, bool ImageBool, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
+        {
+            text = Text;
+            imageBool = ImageBool;
+            buttonChoicesBool = ButtonChoicesBool;
+            buttonLabel1 = ButtonLabel1;
+            buttonLabel2 = ButtonLabel2;
+            buttonLabel3 = ButtonLabel3;
+            buttonLabel4 = ButtonLabel4;
+        }
+
+
+        Image imagePath;
+
+        public Image ImagePath { get => imagePath; set => imagePath = value; }
 
         public Event(string Text, bool ImageBool, Image ImagePath, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
         {
@@ -44,17 +58,6 @@ public class TutorialManager : MonoBehaviour
             buttonLabel4 = ButtonLabel4;
         }
 
-        public Event(string Text, bool ImageBool, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
-        {
-            text = Text;
-            imageBool = ImageBool;
-            imagePath = blank;
-            buttonChoicesBool = ButtonChoicesBool;
-            buttonLabel1 = ButtonLabel1;
-            buttonLabel2 = ButtonLabel2;
-            buttonLabel3 = ButtonLabel3;
-            buttonLabel4 = ButtonLabel4;
-        }
     }
 
     public List<Event> ListEvents;
@@ -404,5 +407,5 @@ public class TutorialManager : MonoBehaviour
         nextButton.interactable = false;
         yield return new WaitForSeconds(0.5f);
         nextButton.interactable = true;
-    }
+    }*/
 }

@@ -2051,16 +2051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff579ee8ee74fc2afe6de678f83cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListEvents: []
-  currentEventIndex: 0
-  nextButtonPressedBool: 0
-  TextBox: {fileID: 276841650}
-  nextButton: {fileID: 1384641591}
-  buttonSelectionGroup: {fileID: 2065428655}
-  buttonSelect1: {fileID: 174125713}
-  buttonSelect2: {fileID: 1357534476}
-  buttonSelect3: {fileID: 417613810}
-  buttonSelect4: {fileID: 608272473}
 --- !u!4 &1981650671
 Transform:
   m_ObjectHideFlags: 0
@@ -2246,7 +2236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -270}
+  m_AnchoredPosition: {x: 960, y: -280}
   m_SizeDelta: {x: 960, y: 540}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2044442821
