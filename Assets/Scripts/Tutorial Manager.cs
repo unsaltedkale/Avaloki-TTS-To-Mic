@@ -5,11 +5,10 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System;
 
 public class TutorialManager : MonoBehaviour
 {
-
-    /*public Image blank;
 
     [System.Serializable]
     public struct Event
@@ -30,10 +29,16 @@ public class TutorialManager : MonoBehaviour
         public string ButtonLabel3 { get => buttonLabel3; set => buttonLabel3 = value; }
         public string ButtonLabel4 { get => buttonLabel4; set => buttonLabel4 = value; }
 
-        public Event(string Text, bool ImageBool, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
+        int imagePath;
+
+        public int ImagePath { get => imagePath; set => imagePath = value; }
+
+
+        public Event(string Text, bool ImageBool, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4) : this()
         {
             text = Text;
             imageBool = ImageBool;
+            imagePath = default(int);
             buttonChoicesBool = ButtonChoicesBool;
             buttonLabel1 = ButtonLabel1;
             buttonLabel2 = ButtonLabel2;
@@ -42,11 +47,8 @@ public class TutorialManager : MonoBehaviour
         }
 
 
-        Image imagePath;
 
-        public Image ImagePath { get => imagePath; set => imagePath = value; }
-
-        public Event(string Text, bool ImageBool, Image ImagePath, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
+        public Event(string Text, bool ImageBool, int ImagePath, bool ButtonChoicesBool, string ButtonLabel1, string ButtonLabel2, string ButtonLabel3, string ButtonLabel4)
         {
             text = Text;
             imageBool = ImageBool;
@@ -72,6 +74,8 @@ public class TutorialManager : MonoBehaviour
     public Button buttonSelect2;
     public Button buttonSelect3;
     public Button buttonSelect4;
+    public Image imageDisplay;
+    public List<Sprite> imagesForTutorial;
 
     public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", false, false, "", "", "", "");
     public Event welcome2 = new Event("Before you can use this program, we have to set it up!", false, false, "", "", "", "");
@@ -215,7 +219,7 @@ public class TutorialManager : MonoBehaviour
     public IEnumerator ListEventsystem()
     {
         currentEvent = ListEvents[currentEventIndex];
-        Render();
+        yield return StartCoroutine(Render());
         yield return new WaitUntil(() => nextButtonPressedBool == true);
         nextButtonPressedBool = false;
 
@@ -287,17 +291,21 @@ public class TutorialManager : MonoBehaviour
         yield break;
     }
 
-    void Render()
+    public IEnumerator Render()
     {
         TextBox.text = currentEvent.Text;
 
         if (currentEvent.ImageBool)
         {
-            //set video
+            imageDisplay.gameObject.SetActive(true);
+            float w = imagesForTutorial[currentEvent.ImagePath].texture.width;
+            float h = imagesForTutorial[currentEvent.ImagePath].texture.height;
+            imageDisplay.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2 (w*(540/h), 540);
+            imageDisplay.sprite = imagesForTutorial[currentEvent.ImagePath];
         }
         else
         {
-            //disable
+            imageDisplay.gameObject.SetActive(false);
         }
 
         if (currentEvent.ButtonChoicesBool)
@@ -353,8 +361,8 @@ public class TutorialManager : MonoBehaviour
         {
             buttonSelectionGroup.SetActive(false);
         }
-        
 
+        yield break;
     }
 
     public void nextButtonPressed()
@@ -407,5 +415,5 @@ public class TutorialManager : MonoBehaviour
         nextButton.interactable = false;
         yield return new WaitForSeconds(0.5f);
         nextButton.interactable = true;
-    }*/
+    }
 }
