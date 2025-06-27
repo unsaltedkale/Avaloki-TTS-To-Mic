@@ -77,6 +77,13 @@ public class TutorialManager : MonoBehaviour
     public Image imageDisplay;
     public List<Sprite> imagesForTutorial;
     public TMP_InputField numberInputField;
+    public GameObject voiceSelectionGroup;
+    public TMP_InputField voiceField1;
+    public TMP_InputField voiceField2;
+    public TMP_InputField voiceField3;
+    public TMP_InputField voiceField4;
+    public TMP_InputField voiceField5;
+    public CrossSceneStorage css;
 
     public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", true, 0, false, "", "", "", "");
     public Event welcome2 = new Event("Before you can use this program, we have to set it up!", false, false, "", "", "", "");
@@ -113,7 +120,7 @@ public class TutorialManager : MonoBehaviour
     public Event voice2 = new Event("MacOS TTS has different voices you can use. We're going to select your five favorites!", false, false, "", "", "", "");
     public Event voice3 = new Event("Open back up Terminal.", false, false, "", "", "", "");
     public Event voice4 = new Event("Now type\n<b>say -v ?</b>\n and press enter. You should see a list of names, as shown above.", false, false, "", "", "", "");
-    public Event voice5 = new Event("Select five voices from the list and add <b>only the name</b> and put one of each into the spaces on the left. Press confirm on each box when you are finalized.", false, false, "", "", "", "");
+    public Event voice5 = new Event("Select five voices from the list and add <b>only the name</b> and put one of each into the spaces on the left. MAKE SURE TO SPELL THEM CORRECTLY! Press NEXT when you are done.", false, false, "", "", "", "");
     public Event voice6 = new Event("Thank you! Avaloki is now all fired up and ready to go!", false, false, "", "", "", "");
 
 
@@ -153,6 +160,8 @@ public class TutorialManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        css = FindFirstObjectByType<CrossSceneStorage>();
+
         ListEvents.Add(welcome1);
         ListEvents.Add(welcome2);
         ListEvents.Add(welcome3);
@@ -176,6 +185,11 @@ public class TutorialManager : MonoBehaviour
         ListEvents.Add(terminal5);
         ListEvents.Add(terminal6);
 
+        ListEvents.Add(voice1);
+        ListEvents.Add(voice2);
+        ListEvents.Add(voice3);
+        ListEvents.Add(voice4);
+        ListEvents.Add(voice5);
 
         ListEvents.Add(integration1);
         ListEvents.Add(integration2);
@@ -183,6 +197,8 @@ public class TutorialManager : MonoBehaviour
         ListEvents.Add(integration4);
         ListEvents.Add(integration5);
         ListEvents.Add(integration6);
+
+        ListEvents.Add(voice6);
 
         ListEvents.Add(selectapp1);
 
@@ -225,15 +241,32 @@ public class TutorialManager : MonoBehaviour
         {
             b = true;
         }
+
+        else if (currentEvent.Text != voice5.Text)
+        {
+            StartCoroutine(DisableForAMoment());
+        }
+
         yield return StartCoroutine(Render(b));
         yield return new WaitUntil(() => nextButtonPressedBool == true);
         nextButtonPressedBool = false;
+
+        if (b)
+        {
+            yield return StartCoroutine(CacheNumberInput());
+        }
+
+        if (currentEvent.Text == voice5.Text)
+        {
+            yield return StartCoroutine(CacheVoiceInput());
+        }
 
         if (choiceButtonPressedBool == true)
         {
             choiceButtonPressedBool = false;
             yield return null;
             StartCoroutine(ListEventsystem());
+            StartCoroutine(DisableForAMoment());
         }
 
         else if (currentEvent.Text != end1.Text)
@@ -304,11 +337,23 @@ public class TutorialManager : MonoBehaviour
         if (b)
         {
             numberInputField.gameObject.SetActive(true);
+            nextButton.interactable = false;
         }
 
         else
         {
             numberInputField.gameObject.SetActive(false);
+        }
+
+        if (currentEvent.Text == voice5.Text)
+        {
+            voiceSelectionGroup.SetActive(true);
+            nextButton.interactable = false;
+        }
+
+        else
+        {
+            voiceSelectionGroup.SetActive(false);
         }
 
         if (currentEvent.ImageBool)
@@ -318,6 +363,16 @@ public class TutorialManager : MonoBehaviour
             float h = imagesForTutorial[currentEvent.ImagePath].texture.height;
             imageDisplay.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(w * (540 / h), 540);
             imageDisplay.sprite = imagesForTutorial[currentEvent.ImagePath];
+
+            if (currentEvent.ImagePath == 4 || currentEvent.ImagePath == 8 || currentEvent.ImagePath == 12 || currentEvent.ImagePath == 16)
+            {
+                imageDisplay.gameObject.GetComponent<RectTransform>().localScale = new Vector3(0.41f, 0.41f, 0.41f);
+            }
+
+            else
+            {
+                imageDisplay.gameObject.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+            }
         }
         else
         {
@@ -381,10 +436,85 @@ public class TutorialManager : MonoBehaviour
         yield break;
     }
 
+    public void NumberInputChange()
+    {
+        if (numberInputField.text == "")
+        {
+            nextButton.interactable = false;
+        }
+
+        else
+        {
+            nextButton.interactable = true;
+        }
+    }
+
+    public void VoiceInputChange()
+    {
+        bool broke = false;
+
+        List<TMP_InputField> listFields = new List<TMP_InputField>();
+
+        listFields.Add(voiceField1);
+        listFields.Add(voiceField2);
+        listFields.Add(voiceField3);
+        listFields.Add(voiceField4);
+        listFields.Add(voiceField5);
+
+        foreach (TMP_InputField ti in listFields)
+        {
+            if (ti.text == "")
+            {
+                broke = true;
+                break;
+            }
+        }
+
+        if (broke)
+        {
+            nextButton.interactable = false;
+        }
+
+        else
+        {
+            nextButton.interactable = true;
+        }
+    }
+    
+    public IEnumerator CacheNumberInput()
+    {
+        print(numberInputField.text);
+
+
+        if (currentEvent.Text == terminal5.Text) //built in output
+        {
+            int.TryParse(numberInputField.text, out css.numberBuiltInOutputChannel);
+        }
+
+        else if (currentEvent.Text == terminal6.Text) //Avaloki Microphone
+        {
+            int.TryParse(numberInputField.text, out css.numberAvalokiMicrophoneOutputChannel);
+        }
+
+        numberInputField.text = "";
+
+
+        yield break;
+    }
+
+    public IEnumerator CacheVoiceInput()
+    {
+        css.voice1name = voiceField1.text;
+        css.voice2name = voiceField2.text;
+        css.voice3name = voiceField3.text;
+        css.voice4name = voiceField4.text;
+        css.voice5name = voiceField5.text;
+        yield break;
+    }
+
     public void nextButtonPressed()
     {
         nextButtonPressedBool = true;
-        StartCoroutine(DisableForAMoment());
     }
 
     public void choiceButtonPressed()

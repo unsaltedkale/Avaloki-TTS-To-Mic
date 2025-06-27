@@ -17,11 +17,38 @@ public class AppManager : MonoBehaviour
     public TMP_Dropdown audioOutputSelectorMenu;
     public string lastSpokenMessage;
     public string voice;
+    public string voice1name;
+    public string voice2name;
+    public string voice3name;
+    public string voice4name;
+    public string voice5name;
+    public CrossSceneStorage css;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        css = FindFirstObjectByType<CrossSceneStorage>();
+
+        avalokiMicrophoneOutputChannel = css.numberAvalokiMicrophoneOutputChannel;
+        builtInOutputChannel = css.numberBuiltInOutputChannel;
+
+        SetVoiceThings();
+
+
         currentOutputChannel = avalokiMicrophoneOutputChannel;
+    }
+
+    public void SetVoiceThings()
+    {
+        voice1name = css.voice1name;
+        voice2name = css.voice2name;
+        voice3name = css.voice3name;
+        voice4name = css.voice4name;
+        voice5name = css.voice5name;
+
+        voice = voice1name;
+        //voiceSelectorMenu
+
     }
 
     // Update is called once per frame
@@ -73,27 +100,27 @@ public class AppManager : MonoBehaviour
     {
         if (voiceSelectorMenu.value == 0)
         {
-            voice = "Daniel";
+            voice = voice1name;
         }
 
         else if (voiceSelectorMenu.value == 1)
         {
-            voice = "Juan";
+            voice = voice2name;
         }
 
         else if (voiceSelectorMenu.value == 2)
         {
-            voice = "Rishi";
+            voice = voice3name;
         }
 
         else if (voiceSelectorMenu.value == 3)
         {
-            voice = "Samantha";
+            voice = voice4name;
         }
 
         else if (voiceSelectorMenu.value == 4)
         {
-            voice = "Victoria";
+            voice = voice5name;
         }
     }
 
