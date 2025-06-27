@@ -191,12 +191,12 @@ public class TutorialManager : MonoBehaviour
         ListEvents.Add(voice4);
         ListEvents.Add(voice5);
 
-        ListEvents.Add(integration1);
+        /*ListEvents.Add(integration1);
         ListEvents.Add(integration2);
         ListEvents.Add(integration3);
         ListEvents.Add(integration4);
         ListEvents.Add(integration5);
-        ListEvents.Add(integration6);
+        ListEvents.Add(integration6);*/
 
         ListEvents.Add(voice6);
 

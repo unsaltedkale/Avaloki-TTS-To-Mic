@@ -1,6 +1,10 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class AppManager : MonoBehaviour
 {
@@ -46,8 +50,12 @@ public class AppManager : MonoBehaviour
         voice4name = css.voice4name;
         voice5name = css.voice5name;
 
+        List<string> DropOptions = new List<string> { voice1name, voice2name, voice3name, voice4name, voice5name };
+
+
         voice = voice1name;
-        //voiceSelectorMenu
+        voiceSelectorMenu.ClearOptions();
+        voiceSelectorMenu.AddOptions(DropOptions);
 
     }
 
@@ -156,7 +164,13 @@ public class AppManager : MonoBehaviour
     {
         if (!appleSpeechSynth.wasSpeaking)
         {
-            appleSpeechSynth.Speak("This is a test message, for your ears only.", builtInOutputChannel, speakingWPM, voice);
+            appleSpeechSynth.Speak("My name is "+ voice + ". This is a test message, through Built-in Audio.", builtInOutputChannel, speakingWPM, voice);
         }
+    }
+
+    public void setUpButtonPressed()
+    {
+        appleSpeechSynth.EmergencyStop();
+        SceneManager.LoadScene("Tutorial_Scene");
     }
 }
