@@ -76,6 +76,7 @@ public class TutorialManager : MonoBehaviour
     public Button buttonSelect4;
     public Image imageDisplay;
     public List<Sprite> imagesForTutorial;
+    public TMP_InputField numberInputField;
 
     public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", true, 0, false, "", "", "", "");
     public Event welcome2 = new Event("Before you can use this program, we have to set it up!", false, false, "", "", "", "");
@@ -219,7 +220,12 @@ public class TutorialManager : MonoBehaviour
     public IEnumerator ListEventsystem()
     {
         currentEvent = ListEvents[currentEventIndex];
-        yield return StartCoroutine(Render());
+        bool b = false;
+        if (currentEvent.Text == terminal5.Text || currentEvent.Text == terminal6.Text)
+        {
+            b = true;
+        }
+        yield return StartCoroutine(Render(b));
         yield return new WaitUntil(() => nextButtonPressedBool == true);
         nextButtonPressedBool = false;
 
@@ -291,16 +297,26 @@ public class TutorialManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator Render()
+    public IEnumerator Render(bool b)
     {
         TextBox.text = currentEvent.Text;
+
+        if (b)
+        {
+            numberInputField.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            numberInputField.gameObject.SetActive(false);
+        }
 
         if (currentEvent.ImageBool)
         {
             imageDisplay.gameObject.SetActive(true);
             float w = imagesForTutorial[currentEvent.ImagePath].texture.width;
             float h = imagesForTutorial[currentEvent.ImagePath].texture.height;
-            imageDisplay.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2 (w*(540/h), 540);
+            imageDisplay.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(w * (540 / h), 540);
             imageDisplay.sprite = imagesForTutorial[currentEvent.ImagePath];
         }
         else
