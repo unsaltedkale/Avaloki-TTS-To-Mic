@@ -77,7 +77,7 @@ public class TutorialManager : MonoBehaviour
     public Image imageDisplay;
     public List<Sprite> imagesForTutorial;
 
-    public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", false, false, "", "", "", "");
+    public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", true, 0, false, "", "", "", "");
     public Event welcome2 = new Event("Before you can use this program, we have to set it up!", false, false, "", "", "", "");
     public Event welcome3 = new Event("This will take approximately <b>20 minutes</b>.", false, false, "", "", "", "");
     public Event welcome4 = new Event("So make sure you can do that before we begin.", false, false, "", "", "", "");
@@ -120,27 +120,27 @@ public class TutorialManager : MonoBehaviour
     public Event selectapp1 = new Event("Click on any button to learn how to set up Avaloki on that app. If you don't want any help, just press next.", false, true, "Discord", "Google Meets", "Slack", "Zoom");
 
 
-    public Event discord1 = new Event("To set up on Discord, press the cog labeled User Settings on the bottom left side of the dashboard.", false, false, "", "", "", "");
-    public Event discord2 = new Event("Scroll down on the left until you see a section called APP SETTINGS. Click Video & Video.", false, false, "", "", "", "");
-    public Event discord3 = new Event("Under the dropdown menu of Input Device, select Avaloki Microphone.", false, false, "", "", "", "");
-    public Event discord4 = new Event("You now have Avaloki set up on Discord! We will now redirect you back to the selection screen.", false, false, "", "", "", "");
+    public Event discord1 = new Event("To set up on Discord, press the cog labeled User Settings on the bottom left side of the dashboard.", true, 1, false, "", "", "", "");
+    public Event discord2 = new Event("Scroll down on the left until you see a section called APP SETTINGS. Click Video & Video.", true, 2, false, "", "", "", "");
+    public Event discord3 = new Event("Under the dropdown menu of Input Device, select Avaloki Microphone.", true, 3, false, "", "", "", "");
+    public Event discord4 = new Event("You now have Avaloki set up on Discord! We will now redirect you back to the selection screen.", true, 4, false, "", "", "", "");
 
 
-    public Event googlemeets1 = new Event("To set up on Google Meets, go to: \n meet.google.com", false, false, "", "", "", "");
-    public Event googlemeets2 = new Event("Press the cog labeled Settings in the upper right corner. Allow chrome access to your microphone if you have not already.", false, false, "", "", "", "");
-    public Event googlemeets3 = new Event("Under Audio, use the dropdown menu under Microphone to select Avaloki Microphone (Virtual).", false, false, "", "", "", "");
-    public Event googlemeets4 = new Event("You now have Avaloki set up on Google Meets! We will now redirect you back to the selection screen.", false, false, "", "", "", "");
+    public Event googlemeets1 = new Event("To set up on Google Meets, go to: \n meet.google.com", true, 5, false, "", "", "", "");
+    public Event googlemeets2 = new Event("Press the cog labeled Settings in the upper right corner. Allow chrome access to your microphone if you have not already.", true, 6, false, "", "", "", "");
+    public Event googlemeets3 = new Event("Under Audio, use the dropdown menu under Microphone to select Avaloki Microphone (Virtual).", true, 7, false, "", "", "", "");
+    public Event googlemeets4 = new Event("You now have Avaloki set up on Google Meets! We will now redirect you back to the selection screen.", true, 8, false, "", "", "", "");
 
 
-    public Event slack1 = new Event("To set up Slack, click your profile picture in the bottom left correct and click Preferences.", false, false, "", "", "", "");
-    public Event slack2 = new Event("Click Audio & Video in the side bar.", false, false, "", "", "", "");
-    public Event slack3 = new Event("Under Microphone, select Avaloki Microphone (Virtual)\n (Can't find it? Quit Slack from the dock by right clicking it and pressing Quit, and then reopen Slack.)", false, false, "", "", "", "");
-    public Event slack4 = new Event("You now have Avaloki set up on Slack! We will now redirect you back to the selection screen.", false, false, "", "", "", "");
+    public Event slack1 = new Event("To set up Slack, click your profile picture in the bottom left correct and click Preferences.", true, 9, false, "", "", "", "");
+    public Event slack2 = new Event("Click Audio & Video in the side bar.", true, 10, false, "", "", "", "");
+    public Event slack3 = new Event("Under Microphone, select Avaloki Microphone (Virtual)\n (Can't find it? Quit Slack from the dock by right clicking it and pressing Quit, and then reopen Slack.)", true, 11, false, "", "", "", "");
+    public Event slack4 = new Event("You now have Avaloki set up on Slack! We will now redirect you back to the selection screen.", true, 12, false, "", "", "", "");
 
-    public Event zoom1 = new Event("To set up Zoom, have Zoom selected and click Zoom.us in the top left corner of your screen, and click Preferences.", false, false, "", "", "", "");
-    public Event zoom2 = new Event("In the window that appears, select Audio on the left hand side.", false, false, "", "", "", "");
-    public Event zoom3 = new Event("Under Microphone, click the drodown menu and select Avaloki Microphone", false, false, "", "", "", "");
-    public Event zoom4 = new Event("You now have Avaloki set up on Zoom! We will now redirect you back to the selection screen.", false, false, "", "", "", "");
+    public Event zoom1 = new Event("To set up Zoom, have Zoom selected and click Zoom.us in the top left corner of your screen, and click Preferences.", true, 13, false, "", "", "", "");
+    public Event zoom2 = new Event("In the window that appears, select Audio on the left hand side.", true, 14, false, "", "", "", "");
+    public Event zoom3 = new Event("Under Microphone, click the drodown menu and select Avaloki Microphone", true, 15, false, "", "", "", "");
+    public Event zoom4 = new Event("You now have Avaloki set up on Zoom! We will now redirect you back to the selection screen.", true, 16, false, "", "", "", "");
 
     public Event end1 = new Event("Thank you for your time! Avaloki will load after you press Next.", false, false, "", "", "", "");
 
