@@ -84,6 +84,7 @@ public class TutorialManager : MonoBehaviour
     public TMP_InputField voiceField4;
     public TMP_InputField voiceField5;
     public CrossSceneStorage css;
+    public Button openURLButton;
 
     public Event welcome1 = new Event("Hello! Welcome to <b>Avaloki</b>.", true, 0, false, "", "", "", "");
     public Event welcome2 = new Event("Before you can use this program, we have to set it up!", false, false, "", "", "", "");
@@ -94,9 +95,9 @@ public class TutorialManager : MonoBehaviour
     public Event install1 = new Event("Avaloki currently works with <b>Loopback</b> to deliver the whole experience.", false, false, "", "", "", "");
     public Event install2 = new Event("Loopback allows audio to flow from a speaker to a microphone, so TTS can play in your call!", false, false, "", "", "", "");
     public Event install3 = new Event("First, we will first install Loopback.", false, false, "", "", "", "");
-    public Event install4 = new Event("Go to <b>https://rogueamoeba.com/loopback/</b> and download the demo version by pressing <i>Free Download</i>.", false, false, "", "", "", "");
+    public Event install4 = new Event("Click the button below to download Loopback-- the download should start automatically.", false, false, "", "", "", "");
     public Event install5 = new Event("Follow the download instructions and come back here when you are done.", false, false, "", "", "", "");
-    public Event install6 = new Event("Welcome back! Now go to Loopback and press the plus button in the bottom left corner that says New Virtual Device.", false, false, "", "", "", "");
+    public Event install6 = new Event("Now go to Loopback and press the plus button in the bottom left corner that says New Virtual Device.", false, false, "", "", "", "");
     public Event install7 = new Event("Click the name to rename it to <b>Avaloki Microphone</b>", false, false, "", "", "", "");
     public Event install8 = new Event("Do not mess with any of the settings inside of Avaloki Microphone.", false, false, "", "", "", "");
 
@@ -104,7 +105,7 @@ public class TutorialManager : MonoBehaviour
     public Event terminal1 = new Event("Great! Now we will set up Avaloki to work with Loopback.", false, false, "", "", "", "");
     public Event terminal2 = new Event("Open the <b>Terminal</b> on your computer.", false, false, "", "", "", "");
     public Event terminal3 = new Event("Don't panic! This will be very simple commands.", false, false, "", "", "", "");
-    public Event terminal4 = new Event("Type\n <b>say -a ?</b> \ninto the terminal and press enter. You should see a list of audio sources like demonstrated above.", false, false, "", "", "", "");
+    public Event terminal4 = new Event("Type <b>say -a ?</b> into the terminal and press enter. You should see a list of audio sources like demonstrated above.", true, 17, false, "", "", "", "");
     public Event terminal5 = new Event("Type into the space below the <b>number</b> to the left of Built-in Output and press the confirm button.", false, false, "", "", "", "");
     public Event terminal6 = new Event("Now, type into the space below the <b>number</b> to the left of Avaloki Microphone and press the confirm button", false, false, "", "", "", "");
 
@@ -119,7 +120,7 @@ public class TutorialManager : MonoBehaviour
     public Event voice1 = new Event("We're almost there! We just need to do one more thing for your quality of life.", false, false, "", "", "", "");
     public Event voice2 = new Event("MacOS TTS has different voices you can use. We're going to select your five favorites!", false, false, "", "", "", "");
     public Event voice3 = new Event("Open back up Terminal.", false, false, "", "", "", "");
-    public Event voice4 = new Event("Now type\n<b>say -v ?</b>\n and press enter. You should see a list of names, as shown above.", false, false, "", "", "", "");
+    public Event voice4 = new Event("Now type\n<b>say -v ?</b>\n and press enter. You should see a list of names, as shown above.", true, 18, false, "", "", "", "");
     public Event voice5 = new Event("Select five voices from the list and add <b>only the name</b> and put one of each into the spaces on the left. MAKE SURE TO SPELL THEM CORRECTLY! Press NEXT when you are done.", false, false, "", "", "", "");
     public Event voice6 = new Event("Thank you! Avaloki is now all fired up and ready to go!", false, false, "", "", "", "");
 
@@ -164,13 +165,13 @@ public class TutorialManager : MonoBehaviour
 
         ListEvents.Add(welcome1);
         ListEvents.Add(welcome2);
-        ListEvents.Add(welcome3);
-        ListEvents.Add(welcome4);
+        //ListEvents.Add(welcome3);
+        //ListEvents.Add(welcome4);
 
 
         ListEvents.Add(install1);
         ListEvents.Add(install2);
-        ListEvents.Add(install3);
+        //ListEvents.Add(install3);
         ListEvents.Add(install4);
         ListEvents.Add(install5);
         ListEvents.Add(install6);
@@ -178,15 +179,15 @@ public class TutorialManager : MonoBehaviour
         ListEvents.Add(install8);
 
 
-        ListEvents.Add(terminal1);
+        //ListEvents.Add(terminal1);
         ListEvents.Add(terminal2);
-        ListEvents.Add(terminal3);
+        //ListEvents.Add(terminal3);
         ListEvents.Add(terminal4);
         ListEvents.Add(terminal5);
         ListEvents.Add(terminal6);
 
-        ListEvents.Add(voice1);
-        ListEvents.Add(voice2);
+        //ListEvents.Add(voice1);
+        //ListEvents.Add(voice2);
         ListEvents.Add(voice3);
         ListEvents.Add(voice4);
         ListEvents.Add(voice5);
@@ -356,6 +357,16 @@ public class TutorialManager : MonoBehaviour
             voiceSelectionGroup.SetActive(false);
         }
 
+        if (currentEvent.Text == install4.Text)
+        {
+            openURLButton.gameObject.SetActive(true);
+        }
+
+        else
+        {
+            openURLButton.gameObject.SetActive(false);
+        }
+
         if (currentEvent.ImageBool)
         {
             imageDisplay.gameObject.SetActive(true);
@@ -364,7 +375,7 @@ public class TutorialManager : MonoBehaviour
             imageDisplay.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(w * (540 / h), 540);
             imageDisplay.sprite = imagesForTutorial[currentEvent.ImagePath];
 
-            if (currentEvent.ImagePath == 4 || currentEvent.ImagePath == 8 || currentEvent.ImagePath == 12 || currentEvent.ImagePath == 16)
+            if (currentEvent.ImagePath == 4 || currentEvent.ImagePath == 8 || currentEvent.ImagePath == 12 || currentEvent.ImagePath == 16 || currentEvent.ImagePath == 17)
             {
                 imageDisplay.gameObject.GetComponent<RectTransform>().localScale = new Vector3(0.41f, 0.41f, 0.41f);
             }
@@ -510,6 +521,11 @@ public class TutorialManager : MonoBehaviour
         css.voice4name = voiceField4.text;
         css.voice5name = voiceField5.text;
         yield break;
+    }
+
+    public void openLoopbackDownloadLink()
+    {
+        Application.OpenURL("https://www.rogueamoeba.com/loopback/download.php");
     }
 
     public void nextButtonPressed()
