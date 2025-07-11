@@ -275,9 +275,9 @@ public class TutorialManager : MonoBehaviour
     {
         yield return StartCoroutine(RequestSpeechParameters("say -a ?"));
 
-        //outputA = rawOutput;
+        outputA = rawOutput;
 
-        print(outputA);
+        //print(outputA);
 
         yield return StartCoroutine(RequestSpeechParameters("say -v ?"));
 
@@ -285,21 +285,33 @@ public class TutorialManager : MonoBehaviour
 
         //print(outputV);
 
-        string[] listOfOutputA = outputA.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        int builtInOutputNumber = 00;
 
-        foreach (var sub in listOfOutputA)
-        {
-            print(sub);
-        }
+        int avalokiMicrophoneOutputNumber = 00;
+
+        int found = outputA.IndexOf(" Built-in Output");
+
+        print(outputA.Substring(0, found));
+
+        Int32.TryParse(outputA.Substring(0, found), out builtInOutputNumber);
+
+
+        css.numberBuiltInOutputChannel = builtInOutputNumber;
 
         string[] listOfOutputV = outputV.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
-        foreach (var sub in listOfOutputV)
+        int i = 0;
+
+        foreach (string sub in listOfOutputV)
         {
-            int found = sub.IndexOf(" ");
-            sub.Substring(found);
-            print(sub);
+            found = sub.IndexOf(" #");
+            string newSub = sub.Substring(0, found);
+            listOfOutputV[i] = newSub;
+            print(newSub);
+            i++;
         }
+
+        css.totalVoicesList = listOfOutputV;
 
         yield return null;
     }

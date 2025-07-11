@@ -5,6 +5,7 @@ public class CrossSceneStorage : MonoBehaviour
     private static CrossSceneStorage css;
     public int numberBuiltInOutputChannel;
     public int numberAvalokiMicrophoneOutputChannel;
+    public string[] totalVoicesList;
     public string voice1name;
     public string voice2name;
     public string voice3name;
@@ -22,7 +23,7 @@ public class CrossSceneStorage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        if(css != null && css !=this)
+        if (css != null && css != this)
         {
             Destroy(this.gameObject);
         }
@@ -31,12 +32,12 @@ public class CrossSceneStorage : MonoBehaviour
             css = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
