@@ -291,12 +291,23 @@ public class TutorialManager : MonoBehaviour
 
         int found = outputA.IndexOf(" Built-in Output");
 
-        print(outputA.Substring(0, found));
+        string workingString = outputA.Substring(0, found);
 
-        Int32.TryParse(outputA.Substring(0, found), out builtInOutputNumber);
+        found = workingString.LastIndexOf(Environment.NewLine);
+
+        Int32.TryParse(workingString.Substring(found), out builtInOutputNumber);
+
+        found = outputA.IndexOf(" Avaloki Microphone");
+
+        workingString = outputA.Substring(0, found);
+
+        found = workingString.LastIndexOf(Environment.NewLine);
+
+        Int32.TryParse(workingString.Substring(found), out avalokiMicrophoneOutputNumber);
 
 
         css.numberBuiltInOutputChannel = builtInOutputNumber;
+        css.numberAvalokiMicrophoneOutputChannel = avalokiMicrophoneOutputNumber;
 
         string[] listOfOutputV = outputV.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
