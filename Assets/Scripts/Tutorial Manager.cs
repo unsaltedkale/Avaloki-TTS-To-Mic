@@ -6,6 +6,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System;
+using System.Text;
+using System.IO;
+using System.Diagnostics;
+using System.Threading;
+using System.ComponentModel;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -163,6 +168,8 @@ public class TutorialManager : MonoBehaviour
     {
         css = FindFirstObjectByType<CrossSceneStorage>();
 
+        StartCoroutine(SetUpSpeechOutputNumbers());
+
         ListEvents.Add(welcome1);
         ListEvents.Add(welcome2);
         //ListEvents.Add(welcome3);
@@ -232,6 +239,69 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public string outputA;
+
+    public string outputV;
+    public string rawOutput;
+
+    //credit to: https://www.reddit.com/r/csharp/comments/kg6us8/is_there_is_a_way_to_execute_bash_commands_from_c/
+
+    public IEnumerator RequestSpeechParameters(string command)
+    {
+        var psi = new System.Diagnostics.ProcessStartInfo();
+        psi.FileName = "bash";
+        psi.Arguments = $"-c \"{command}\"";
+        psi.RedirectStandardOutput = true;
+
+        psi.UseShellExecute = false;
+        psi.CreateNoWindow = true;
+
+        using var process = System.Diagnostics.Process.Start(psi);
+
+        string output = process.StandardOutput.ReadToEnd();
+
+        yield return new WaitUntil(() => process.HasExited == true);
+
+        print(output);
+
+        rawOutput = output;
+
+        yield return output;
+    }
+
+    public IEnumerator SetUpSpeechOutputNumbers()
+    {
+        yield return StartCoroutine(RequestSpeechParameters("say -a ?"));
+
+        //outputA = rawOutput;
+
+        print(outputA);
+
+        yield return StartCoroutine(RequestSpeechParameters("say -v ?"));
+
+        outputV = rawOutput;
+
+        //print(outputV);
+
+        string[] listOfOutputA = outputA.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var sub in listOfOutputA)
+        {
+            print(sub);
+        }
+
+        string[] listOfOutputV = outputV.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (var sub in listOfOutputV)
+        {
+            int found = sub.IndexOf(" ");
+            sub.Substring(found);
+            print(sub);
+        }
+
+        yield return null;
     }
 
     public IEnumerator ListEventsystem()
@@ -318,7 +388,7 @@ public class TutorialManager : MonoBehaviour
             currentEvent = end1;
         }
 
-        for(int i = 0; i < ListEvents.Count; i++)
+        for (int i = 0; i < ListEvents.Count; i++)
         {
             Event e = ListEvents[i];
             if (e.Text == currentEvent.Text)
@@ -491,7 +561,7 @@ public class TutorialManager : MonoBehaviour
             nextButton.interactable = true;
         }
     }
-    
+
     public IEnumerator CacheNumberInput()
     {
         print(numberInputField.text);
@@ -557,7 +627,7 @@ public class TutorialManager : MonoBehaviour
             currentEvent = zoom1;
         }
 
-        for(int i = 0; i < ListEvents.Count; i++)
+        for (int i = 0; i < ListEvents.Count; i++)
         {
             Event e = ListEvents[i];
             if (e.Text == currentEvent.Text)
