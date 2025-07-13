@@ -2636,11 +2636,6 @@ MonoBehaviour:
   audioOutputSelectorMenu: {fileID: 978711021}
   lastSpokenMessage: 
   voice: 
-  voice1name: 
-  voice2name: 
-  voice3name: 
-  voice4name: 
-  voice5name: 
   css: {fileID: 0}
 --- !u!1 &1560691331
 GameObject:

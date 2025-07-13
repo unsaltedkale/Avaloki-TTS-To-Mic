@@ -6,11 +6,7 @@ public class CrossSceneStorage : MonoBehaviour
     public int numberBuiltInOutputChannel;
     public int numberAvalokiMicrophoneOutputChannel;
     public string[] totalVoicesList;
-    public string voice1name;
-    public string voice2name;
-    public string voice3name;
-    public string voice4name;
-    public string voice5name;
+    public string[] totalAudioList;
 
     // > to make something have crossscenestorage
     // > before the start function

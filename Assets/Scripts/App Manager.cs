@@ -5,6 +5,12 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System;
+using System.Text;
+using System.IO;
+using System.Diagnostics;
+using System.Threading;
+using System.ComponentModel;
 
 public class AppManager : MonoBehaviour
 {
@@ -21,11 +27,6 @@ public class AppManager : MonoBehaviour
     public TMP_Dropdown audioOutputSelectorMenu;
     public string lastSpokenMessage;
     public string voice;
-    public string voice1name;
-    public string voice2name;
-    public string voice3name;
-    public string voice4name;
-    public string voice5name;
     public CrossSceneStorage css;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,26 +39,44 @@ public class AppManager : MonoBehaviour
 
         SetVoiceThings();
 
+        SetAudioThings();
 
-        currentOutputChannel = avalokiMicrophoneOutputChannel;
     }
 
     public void SetVoiceThings()
     {
-        voice1name = css.voice1name;
-        voice2name = css.voice2name;
-        voice3name = css.voice3name;
-        voice4name = css.voice4name;
-        voice5name = css.voice5name;
 
-        List<string> DropOptions = new List<string> { voice1name, voice2name, voice3name, voice4name, voice5name };
+        List<string> DropOptions = new List<string> { };
 
+        foreach (string s in css.totalVoicesList)
+        {
+            DropOptions.Add(s);
+        }
 
-        voice = voice1name;
         voiceSelectorMenu.ClearOptions();
         voiceSelectorMenu.AddOptions(DropOptions);
 
+        voiceSelectorChanged();
+
     }
+
+    public void SetAudioThings()
+    {
+
+        List<string> DropOptions = new List<string> { };
+
+        foreach (string s in css.totalAudioList)
+        {
+            DropOptions.Add(s);
+        }
+
+        audioOutputSelectorMenu.ClearOptions();
+        audioOutputSelectorMenu.AddOptions(DropOptions);
+
+        audioOutputSelectorChanged();
+
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -106,43 +125,32 @@ public class AppManager : MonoBehaviour
 
     public void voiceSelectorChanged()
     {
-        if (voiceSelectorMenu.value == 0)
-        {
-            voice = voice1name;
-        }
+        int value = voiceSelectorMenu.value;
 
-        else if (voiceSelectorMenu.value == 1)
-        {
-            voice = voice2name;
-        }
+        print(voiceSelectorMenu.options[value].text);
 
-        else if (voiceSelectorMenu.value == 2)
-        {
-            voice = voice3name;
-        }
+        string workingString = voiceSelectorMenu.options[value].text;
 
-        else if (voiceSelectorMenu.value == 3)
-        {
-            voice = voice4name;
-        }
+        int found = workingString.IndexOf(" ");
 
-        else if (voiceSelectorMenu.value == 4)
-        {
-            voice = voice5name;
-        }
+        workingString = workingString.Substring(0, found);
+
+        voice = workingString;
     }
 
     public void audioOutputSelectorChanged()
     {
-        if (audioOutputSelectorMenu.value == 0)
-        {
-            currentOutputChannel = avalokiMicrophoneOutputChannel;
-        }
+        int value = audioOutputSelectorMenu.value;
 
-        else if (audioOutputSelectorMenu.value == 1)
-        {
-            currentOutputChannel = builtInOutputChannel;
-        }
+        print(audioOutputSelectorMenu.options[value].text);
+
+        string workingString = audioOutputSelectorMenu.options[value].text;
+
+        workingString = System.Text.RegularExpressions.Regex.Match(workingString, @"\d+").Value;
+
+        print(workingString);
+
+        Int32.TryParse(workingString, out currentOutputChannel);
     }
     public void KeepActive()
     {
@@ -164,7 +172,7 @@ public class AppManager : MonoBehaviour
     {
         if (!appleSpeechSynth.wasSpeaking)
         {
-            appleSpeechSynth.Speak("My name is "+ voice + ". This is a test message, through Built-in Audio.", builtInOutputChannel, speakingWPM, voice);
+            appleSpeechSynth.Speak("My name is " + voice + ". This is a test message, through Built-in Audio.", builtInOutputChannel, speakingWPM, voice);
         }
     }
 

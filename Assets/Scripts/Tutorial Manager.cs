@@ -103,7 +103,7 @@ public class TutorialManager : MonoBehaviour
     public Event install4 = new Event("Click the button below to download Loopback-- the download should start automatically.", false, false, "", "", "", "");
     public Event install5 = new Event("Follow the download instructions and come back here when you are done.", false, false, "", "", "", "");
     public Event install6 = new Event("Now go to Loopback and press the plus button in the bottom left corner that says New Virtual Device.", false, false, "", "", "", "");
-    public Event install7 = new Event("Click the name to rename it to <b>Avaloki Microphone</b>", false, false, "", "", "", "");
+    public Event install7 = new Event("Click the name to rename it to SPECIFICALLY <b>Avaloki Microphone</b>. If you name it something else it will not work.", false, false, "", "", "", "");
     public Event install8 = new Event("Do not mess with any of the settings inside of Avaloki Microphone.", false, false, "", "", "", "");
 
 
@@ -168,8 +168,6 @@ public class TutorialManager : MonoBehaviour
     {
         css = FindFirstObjectByType<CrossSceneStorage>();
 
-        StartCoroutine(SetUpSpeechOutputNumbers());
-
         ListEvents.Add(welcome1);
         ListEvents.Add(welcome2);
         //ListEvents.Add(welcome3);
@@ -187,17 +185,17 @@ public class TutorialManager : MonoBehaviour
 
 
         //ListEvents.Add(terminal1);
-        ListEvents.Add(terminal2);
+        //ListEvents.Add(terminal2);
         //ListEvents.Add(terminal3);
-        ListEvents.Add(terminal4);
-        ListEvents.Add(terminal5);
-        ListEvents.Add(terminal6);
+        //ListEvents.Add(terminal4);
+        //ListEvents.Add(terminal5);
+        //ListEvents.Add(terminal6);
 
         //ListEvents.Add(voice1);
         //ListEvents.Add(voice2);
-        ListEvents.Add(voice3);
-        ListEvents.Add(voice4);
-        ListEvents.Add(voice5);
+        //ListEvents.Add(voice3);
+        //ListEvents.Add(voice4);
+        //ListEvents.Add(voice5);
 
         /*ListEvents.Add(integration1);
         ListEvents.Add(integration2);
@@ -285,9 +283,13 @@ public class TutorialManager : MonoBehaviour
 
         //print(outputV);
 
+        string[] listOfOutputA = outputA.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
         int builtInOutputNumber = 00;
 
         int avalokiMicrophoneOutputNumber = 00;
+
+        css.totalAudioList = listOfOutputA;
 
         int found = outputA.IndexOf(" Built-in Output");
 
@@ -295,7 +297,15 @@ public class TutorialManager : MonoBehaviour
 
         found = workingString.LastIndexOf(Environment.NewLine);
 
-        Int32.TryParse(workingString.Substring(found), out builtInOutputNumber);
+        if (found >= 0)
+        {
+            Int32.TryParse(workingString.Substring(found), out builtInOutputNumber);
+        }
+
+        else
+        {
+            Int32.TryParse(workingString, out builtInOutputNumber);
+        }
 
         found = outputA.IndexOf(" Avaloki Microphone");
 
@@ -303,8 +313,15 @@ public class TutorialManager : MonoBehaviour
 
         found = workingString.LastIndexOf(Environment.NewLine);
 
-        Int32.TryParse(workingString.Substring(found), out avalokiMicrophoneOutputNumber);
+        if (found >= 0)
+        {
+            Int32.TryParse(workingString.Substring(found), out avalokiMicrophoneOutputNumber);
+        }
 
+        else
+        {
+            Int32.TryParse(workingString, out avalokiMicrophoneOutputNumber);
+        }
 
         css.numberBuiltInOutputChannel = builtInOutputNumber;
         css.numberAvalokiMicrophoneOutputChannel = avalokiMicrophoneOutputNumber;
@@ -350,9 +367,9 @@ public class TutorialManager : MonoBehaviour
             yield return StartCoroutine(CacheNumberInput());
         }
 
-        if (currentEvent.Text == voice5.Text)
+        if (currentEvent.Text == voice6.Text)
         {
-            yield return StartCoroutine(CacheVoiceInput());
+            yield return StartCoroutine(SetUpSpeechOutputNumbers());
         }
 
         if (choiceButtonPressedBool == true)
@@ -606,7 +623,7 @@ public class TutorialManager : MonoBehaviour
         yield break;
     }
 
-    public IEnumerator CacheVoiceInput()
+    /*public IEnumerator CacheVoiceInput()
     {
         css.voice1name = voiceField1.text;
         css.voice2name = voiceField2.text;
@@ -614,7 +631,7 @@ public class TutorialManager : MonoBehaviour
         css.voice4name = voiceField4.text;
         css.voice5name = voiceField5.text;
         yield break;
-    }
+    }*/
 
     public void openLoopbackDownloadLink()
     {
