@@ -37,7 +37,22 @@ Avaloki is only on MacOS as of now because I've only found a way to access nativ
 
 Avaloki is named after Avalokiteśvara, a Bodhisattva in Buddhism. They are the Bodhisattva of compassion, hearing the cries of the world and helping whenever and wherever they can. I feel like they were a fitting namesake for an application that gives a voice to people who may not have one.
 
-## How to Download and Run Avaloki (MacOS Only)
+## How to Download and Run Avaloki - Method 1
+
+1. Download Avaloki from the Releases side bar on the right.
+
+2. Unzip the file.
+
+3. Run `xattr -d com.apple.quarantine /path/to/app` in the terminal
+
+> [!NOTE]
+> Don't know how to get the file path? You can actually drag the application into the terminal and it will copy the file path into the terminal. For me, it was something like `/Users/hestia/Downloads/Avaloki\ v0.7.04-beta.app`, but yours will be different!
+
+4. Avaloki should boot up and be fully functioning! Follow the on-screen instructions to make it fully working. It will involve downloading Loopback (or another VAC if you are knowledgeable) and two very simple terminal commands that just show data you have to input.
+
+
+
+## How to Download and Run Avaloki - Method 2
 
 Avaloki requires Loopback or a similar Virtual Audio Cable to work. Once more:
 
@@ -46,7 +61,7 @@ Avaloki requires Loopback or a similar Virtual Audio Cable to work. Once more:
 
 So make sure to download that now or when you come to that point in the Tutorial.
 
-1. Download the lastest relase of Avaloki from the Releases side bar on the right.
+1. Download Avaloki from the Releases side bar on the right.
 
 2. Unzip the file if it didn't automatically unzip and attempt to open it.
 
