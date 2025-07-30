@@ -1,3 +1,6 @@
+> [!CAUTION]
+> Avaloki v0.7.12-beta broke 😔 currently, use v0.7.4-beta and make sure to run the commands in bash and not zsh or anything else!
+
 > [!NOTE]
 > Avaloki uses Loopback to function. While the set up instructions within the program request Loopback, similar (and maybe better) Virtual Audio Cables like Blackhole work-- if you have the knowledge to operate them.
 
