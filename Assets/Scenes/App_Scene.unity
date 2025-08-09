@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press here to set up Avaloki!
+  m_text: Press here to set up Avaloki again.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2463,7 +2463,7 @@ MonoBehaviour:
 
     Avaloki works with Loopback
     Audio to be used almost anywhere. Avaloki can be used on Discord, Slack, Zoom,
-    and any place that asks for a microphone input. Simply select "Avaloki Audio"
+    and any place that asks for a microphone input. Simply select "Avaloki Microphone"
     as your microphone in the application!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
