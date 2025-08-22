@@ -16,7 +16,7 @@ public class AppManager : MonoBehaviour
 {
     public AppleSpeechSynth appleSpeechSynth;
     public TMP_InputField inputField;
-    public int builtInOutputChannel;
+    //public int builtInOutputChannel;
     public int avalokiMicrophoneOutputChannel;
     public int currentOutputChannel;
     public bool speechSynthBusy;
@@ -35,7 +35,7 @@ public class AppManager : MonoBehaviour
         css = FindFirstObjectByType<CrossSceneStorage>();
 
         avalokiMicrophoneOutputChannel = css.numberAvalokiMicrophoneOutputChannel;
-        builtInOutputChannel = css.numberBuiltInOutputChannel;
+        //builtInOutputChannel = css.numberBuiltInOutputChannel;
 
         SetVoiceThings();
 
@@ -172,7 +172,7 @@ public class AppManager : MonoBehaviour
     {
         if (!appleSpeechSynth.wasSpeaking)
         {
-            appleSpeechSynth.Speak("My name is " + voice + ". This is a test message, through Built-in Audio.", builtInOutputChannel, speakingWPM, voice);
+            appleSpeechSynth.Speak("My name is " + voice + ". This is a test message, through " + currentOutputChannel + ".", currentOutputChannel, speakingWPM, voice);
         }
     }
 

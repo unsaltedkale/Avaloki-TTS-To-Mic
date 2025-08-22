@@ -291,7 +291,10 @@ public class TutorialManager : MonoBehaviour
 
         css.totalAudioList = listOfOutputA;
 
-        int found = outputA.IndexOf(" Built-in Output");
+        int found;
+        string workingString;
+
+        /* int found = outputA.IndexOf(" Built-in Output");
 
         string workingString = outputA.Substring(0, found);
 
@@ -305,7 +308,7 @@ public class TutorialManager : MonoBehaviour
         else
         {
             Int32.TryParse(workingString, out builtInOutputNumber);
-        }
+        }*/
 
         found = outputA.IndexOf(" Avaloki Microphone");
 
@@ -323,7 +326,7 @@ public class TutorialManager : MonoBehaviour
             Int32.TryParse(workingString, out avalokiMicrophoneOutputNumber);
         }
 
-        css.numberBuiltInOutputChannel = builtInOutputNumber;
+        //css.numberBuiltInOutputChannel = builtInOutputNumber;
         css.numberAvalokiMicrophoneOutputChannel = avalokiMicrophoneOutputNumber;
 
         string[] listOfOutputV = outputV.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
@@ -605,9 +608,10 @@ public class TutorialManager : MonoBehaviour
     public IEnumerator CacheNumberInput()
     {
         print(numberInputField.text);
+        print("huh. you're not supposed to be using this thing.");
 
 
-        if (currentEvent.Text == terminal5.Text) //built in output
+        /* if (currentEvent.Text == terminal5.Text) //built in output
         {
             int.TryParse(numberInputField.text, out css.numberBuiltInOutputChannel);
         }
@@ -617,7 +621,7 @@ public class TutorialManager : MonoBehaviour
             int.TryParse(numberInputField.text, out css.numberAvalokiMicrophoneOutputChannel);
         }
 
-        numberInputField.text = "";
+        numberInputField.text = ""; */
 
 
         yield break;

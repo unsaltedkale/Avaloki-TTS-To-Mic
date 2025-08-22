@@ -3,7 +3,7 @@ using UnityEngine;
 public class CrossSceneStorage : MonoBehaviour
 {
     private static CrossSceneStorage css;
-    public int numberBuiltInOutputChannel;
+    //public int numberBuiltInOutputChannel;
     public int numberAvalokiMicrophoneOutputChannel;
     public string[] totalVoicesList;
     public string[] totalAudioList;
